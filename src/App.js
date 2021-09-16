@@ -1,11 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import { Button, Card, Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import DatePicker from 'react-datepicker';
- 
-import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -17,8 +12,8 @@ function App() {
     }
   ]);
 
-  const addTodo = text => {
-    const newTodos = [...todos, { text }];
+  function addTodo (text, deadline) {
+    const newTodos = [...todos, { text,deadline}];
     setTodos(newTodos);
   }
 
@@ -78,7 +73,7 @@ function Todo({ todo, index, markTodo, removeTodo }) {
 }
 
 function FormTodo ({addTodo}) {
-  const [value, setValue] = React.useState("");
+  const [value, setValue, deadline] = React.useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -87,7 +82,7 @@ function FormTodo ({addTodo}) {
         alert("Item needs a text");
         return;
       }
-    addTodo(value);
+    addTodo(value, deadline);
     setValue("");
   };
 
@@ -96,11 +91,21 @@ function FormTodo ({addTodo}) {
     <Form.Group>
       <Form.Label><b>Add Todo</b></Form.Label>
       <Form.Control type ="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo text" />
-      <Form.Control type ="date" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo deadline" />
+      <Form.Control type ="date" className="input" value={deadline} onChange={e => setValue(e.target.value)} placeholder="Add new todo deadline" />
     </Form.Group>
     <Button variant="primary mb-3" type="submit">Submit</Button>
+    {/* <TextFile></TextFile> */}
     </Form>
   );
 }
+
+// const TextFile = () => {
+//   const element = document.createElement("a");
+//   const file = new Blob([document.getElementById('myInput').value], {type: 'text/plain'});
+//   element.href = URL.createObjectURL(file);
+//   element.download = "myFile.txt";
+//   document.body.appendChild(element); // Required for this to work in FireFox
+//   element.click();
+// }
 
 export default App;
