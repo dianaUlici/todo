@@ -34,7 +34,7 @@ function App() {
       <div className="container">
         <h1 className="text-center mb-4">Todo List Trial Day Diana</h1>
         <FormTodo addTodo={addTodo} />
-        <div>
+        <div id="todoList">
           {todos.map((todo, index) => (
             <Card>
               <Card.Body>
@@ -72,6 +72,16 @@ function Todo({ todo, index, markTodo, removeTodo }) {
   );
 }
 
+function TextFile() {
+  const element = document.createElement("a");
+   const file = new Blob([document.getElementById('todoList').textContent],    
+               {type: 'text/plain;charset=utf-8'});
+   element.href = URL.createObjectURL(file);
+   element.download = "myFile.txt";
+   document.body.appendChild(element);
+   element.click();
+}
+
 function FormTodo ({addTodo}) {
   const [value, setValue, deadline] = React.useState("");
 
@@ -94,18 +104,9 @@ function FormTodo ({addTodo}) {
       <Form.Control type ="date" className="input" value={deadline} onChange={e => setValue(e.target.value)} placeholder="Add new todo deadline" />
     </Form.Group>
     <Button variant="primary mb-3" type="submit">Submit</Button>
-    {/* <TextFile></TextFile> */}
+    <Button variant="primary mb-3" onClick={TextFile}>Download tasks as text file</Button>
     </Form>
   );
 }
-
-// const TextFile = () => {
-//   const element = document.createElement("a");
-//   const file = new Blob([document.getElementById('myInput').value], {type: 'text/plain'});
-//   element.href = URL.createObjectURL(file);
-//   element.download = "myFile.txt";
-//   document.body.appendChild(element); // Required for this to work in FireFox
-//   element.click();
-// }
 
 export default App;
