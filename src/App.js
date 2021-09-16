@@ -8,7 +8,7 @@ function App() {
     {
       text: "This is a simple todo",
       isDone: false,
-      deadline: Date().toLocaleString()
+      deadline: Date().toLocaleString('en-GB')
     }
   ]);
 
@@ -83,16 +83,16 @@ function TextFile() {
 }
 
 function FormTodo ({addTodo}) {
-  const [value, setValue, deadline] = React.useState("");
+  const [text, setValue, deadline] = React.useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (!value) 
+    if (!text) 
       {
         alert("Item needs a text");
         return;
       }
-    addTodo(value, deadline);
+    addTodo(text, deadline);
     setValue("");
   };
 
@@ -100,7 +100,7 @@ function FormTodo ({addTodo}) {
     <Form onSubmit={handleSubmit}>
     <Form.Group>
       <Form.Label><b>Add Todo</b></Form.Label>
-      <Form.Control type ="text" className="input" value={value} onChange={e => setValue(e.target.value)} placeholder="Add new todo text" />
+      <Form.Control type ="text" className="input" value={text} onChange={e => setValue(e.target.value)} placeholder="Add new todo text" />
       <Form.Control type ="date" className="input" value={deadline} onChange={e => setValue(e.target.value)} placeholder="Add new todo deadline" />
     </Form.Group>
     <Button variant="primary mb-3" type="submit">Submit</Button>
